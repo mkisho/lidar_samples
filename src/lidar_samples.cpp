@@ -10,6 +10,9 @@
 #include <fstream> 
 
 #define NUM_SAMPLES 180
+#define CENTRO_X 0
+#define CENTRO_Y 0
+#define CENTRO_Z 0.5
 
 using namespace std;
 
@@ -45,10 +48,11 @@ int main(int argc, char **argv)
   gazebo_msgs::SetLinkState srv;
   srand(time(NULL));
   float x,y,z;
+  ros::Rate loop_rate(3);
   for(int i=0; i<5000; i++){
-	  x=((float)rand()/(float)(RAND_MAX)) * 2 + sin(i)*5;
-	  y=((float)rand()/(float)(RAND_MAX)) * 2 + cos(i)*5;
-	  z=((float)rand()/(float)(RAND_MAX)) * 0.5 + 0.5;
+	  x=((float)rand()/(float)(RAND_MAX)) * 2 + sin(i)*5 + CENTRO_X;
+	  y=((float)rand()/(float)(RAND_MAX)) * 2 + cos(i)*5 + CENTRO_Y;
+	  z=((float)rand()/(float)(RAND_MAX)) * 0.5 + CENTRO_Z;
 	  
 	  srv.request.link_state.link_name = "turtlebot3";
 	  srv.request.link_state.pose.position.x = x;
@@ -71,13 +75,17 @@ int main(int argc, char **argv)
 
 	  if (client.call(srv))
 	  {
-//	    ROS_INFO("Sum: %ld", (long int)srv.response.sum);
+		
 	  }
 	  else
 	  {
     		ROS_ERROR("Failed to call service lidar_samples");
     		return 1;
 	  }
+	  loop_rate.sleep();
+  	  ros::spinOnce();
+	  
 	}
+  resultados.close();
   return 0;
 }
