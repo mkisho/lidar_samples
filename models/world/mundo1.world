@@ -106,7 +106,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -127,7 +127,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -199,7 +199,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -220,7 +220,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -292,7 +292,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -313,7 +313,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/por.dae</uri>
+              <uri>package://lidar_samples/models/world/por.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -385,7 +385,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -406,7 +406,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -478,7 +478,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -499,7 +499,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -571,7 +571,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -592,7 +592,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -664,7 +664,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -685,7 +685,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -757,7 +757,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -778,7 +778,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -850,7 +850,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -871,7 +871,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -943,7 +943,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -964,7 +964,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/oem/Documentos/New Folder/arvore.dae</uri>
+              <uri>package://lidar_samples/models/world/arvore.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
