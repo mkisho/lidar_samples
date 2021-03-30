@@ -14,15 +14,15 @@
 #define CENTRO_Y 0
 #define CENTRO_Z 0.5
 
-#define ISTORRE "true"
-#define FILENAME "~/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt"
+#define ISTORRE "false"
+//#define FILENAME "~/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt"
 
 using namespace std;
 
 sensor_msgs::LaserScan scan;
 int new_reading= 0;
 
-ofstream resultados(FILENAME);
+ofstream resultados("/home/mathias/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt");
 
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 	scan.header = msg->header;
@@ -80,12 +80,12 @@ int main(int argc, char **argv)
 //	  loop_rate.sleep();
   	  ros::spinOnce(); 
   	  new_reading=false;
+    	  ROS_WARN("Esperando msg");
 	  while(!new_reading){
   	  	ros::spinOnce();
-    		ROS_WARN("Esperando msg");
 
 	  } 
-          ROS_INFO("Msg received");
+          ROS_INFO("Msg received: %d", i);
 	  resultados << CENTRO_X - x << " " << CENTRO_Y - y << " ";
 	  for(int i=0; i < NUM_SAMPLES; i++){
 		resultados << scan.ranges[i] << " ";
