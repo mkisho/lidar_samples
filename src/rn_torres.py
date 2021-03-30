@@ -7,8 +7,8 @@ import pandas as pd
 import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 # Importing the dataset
-dataset = pd.read_csv('~/Videos/torreTrees.txt')
-X = dataset.iloc[:, 0: 180].values
+dataset = pd.read_csv('/home/mathias/catkin_ws/src/lidar_samples/datasets/resultadosFinal.txt')
+X = dataset.iloc[:, 2: 181].values
 y = dataset.iloc[:, -1].values
 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -47,7 +47,7 @@ from keras.layers import Input
 
 # Predicting the Test set results
 
-"""
+
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score
 
@@ -67,8 +67,8 @@ def build_classifier():
 
 classifier = KerasClassifier(build_fn = build_classifier, batch_size = 32, nb_epoch = 25)    
 accuraciers = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10, n_jobs = -1)
-"""
 
+"""
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 
@@ -112,6 +112,7 @@ best_param= grid_search.best_params_
 best_accur= grid_search.best_score_
 
 classifier.fit(X_train, y_train, batch_size = 32)
+"""
 
 y_pred = classifier.predict(X_test)
 #y_pred = (y_pred>0.5)
