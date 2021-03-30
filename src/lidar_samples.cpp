@@ -14,11 +14,15 @@
 #define CENTRO_Y 0
 #define CENTRO_Z 0.5
 
+#define ISTORRE "true"
+#define FILENAME "resultadosComTorre.txt"
+
 using namespace std;
 
 sensor_msgs::LaserScan scan;
+int new_reading= 0;
 
-ofstream resultados("filename.txt");
+ofstream resultados(FILENAME);
 
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 	scan.header = msg->header;
@@ -31,12 +35,7 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 	scan.range_max = msg->range_max;
 	scan.ranges = msg->ranges;
 	scan.intensities = msg->intensities;
-	
-	for(int i=0; i < NUM_SAMPLES; i++){
-		resultados << scan.ranges[i] << " ";
-	}
-	resultados << "true";
-	resultados <<"\n";
+	new_reading= 1;
 }
 
 int main(int argc, char **argv)
@@ -48,13 +47,13 @@ int main(int argc, char **argv)
   gazebo_msgs::SetLinkState srv;
   srand(time(NULL));
   float x,y,z;
-  ros::Rate loop_rate(3);
+  ros::Rate loop_rate(1);
   for(int i=0; i<5000; i++){
 	  x=((float)rand()/(float)(RAND_MAX)) * 2 + sin(i)*5 + CENTRO_X;
 	  y=((float)rand()/(float)(RAND_MAX)) * 2 + cos(i)*5 + CENTRO_Y;
 	  z=((float)rand()/(float)(RAND_MAX)) * 0.5 + CENTRO_Z;
 	  
-	  srv.request.link_state.link_name = "turtlebot3";
+	  srv.request.link_state.link_name = "base_footprint";
 	  srv.request.link_state.pose.position.x = x;
 	  srv.request.link_state.pose.position.y = y;
 	  srv.request.link_state.pose.position.z = z;
@@ -72,19 +71,27 @@ int main(int argc, char **argv)
 	  srv.request.link_state.twist.angular.z = 0;
 
 	  srv.request.link_state.reference_frame = "world";
-
-	  if (client.call(srv))
+	  srv.response.success=false;
+	  while (!client.call(srv))
 	  {
+    		ROS_WARN("Failed to call service lidar_samples");
 		
 	  }
-	  else
-	  {
-    		ROS_ERROR("Failed to call service lidar_samples");
-    		return 1;
+//	  loop_rate.sleep();
+  	  ros::spinOnce(); 
+  	  new_reading=false;
+	  while(!new_reading){
+  	  	ros::spinOnce();
+    		ROS_WARN("Esperando msg");
+
+	  } 
+          ROS_INFO("Msg received");
+	  resultados << CENTRO_X - x << " " << CENTRO_Y - y << " ";
+	  for(int i=0; i < NUM_SAMPLES; i++){
+		resultados << scan.ranges[i] << " ";
 	  }
-	  loop_rate.sleep();
-  	  ros::spinOnce();
-	  
+	  resultados << ISTORRE;
+   	  resultados <<"\n";
 	}
   resultados.close();
   return 0;
