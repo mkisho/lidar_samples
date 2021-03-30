@@ -15,7 +15,7 @@
 #define CENTRO_Z 0.5
 
 #define ISTORRE "true"
-#define FILENAME "resultadosComTorre.txt"
+#define FILENAME "~/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt"
 
 using namespace std;
 
