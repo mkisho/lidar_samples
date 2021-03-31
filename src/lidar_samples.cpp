@@ -49,9 +49,9 @@ int main(int argc, char **argv)
   float x,y,z;
   ros::Rate loop_rate(1);
   for(int i=0; i<5000; i++){
-	  x=((float)rand()/(float)(RAND_MAX)) * 2 + sin(i)*5 + CENTRO_X;
-	  y=((float)rand()/(float)(RAND_MAX)) * 2 + cos(i)*5 + CENTRO_Y;
-	  z=((float)rand()/(float)(RAND_MAX)) * 0.5 + CENTRO_Z;
+	  x=((float)rand()/(float)(RAND_MAX)) * 1 + sin(i)*4 + CENTRO_X;
+	  y=((float)rand()/(float)(RAND_MAX)) * 1 + cos(i)*4 + CENTRO_Y;
+	  z=((float)rand()/(float)(RAND_MAX)) * 0.2 + CENTRO_Z;
 	  
 	  srv.request.link_state.link_name = "base_footprint";
 	  srv.request.link_state.pose.position.x = x;
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     		ROS_WARN("Failed to call service lidar_samples");
 		
 	  }
-//	  loop_rate.sleep();
+	  loop_rate.sleep();
   	  ros::spinOnce(); 
   	  new_reading=false;
     	  ROS_WARN("Esperando msg");

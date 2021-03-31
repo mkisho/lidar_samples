@@ -7,9 +7,11 @@ import pandas as pd
 import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 # Importing the dataset
-dataset = pd.read_csv('/home/mathias/catkin_ws/src/lidar_samples/datasets/resultadosFinal.txt')
-X = dataset.iloc[:, 2: 181].values
+dataset = pd.read_csv('/home/mathias/catkin_ws/src/lidar_samples/datasets/dadosFinais.csv')
+X = dataset.iloc[:, 2: 362].values
 y = dataset.iloc[:, -1].values
+
+print(X)
 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer 
@@ -47,7 +49,7 @@ from keras.layers import Input
 
 # Predicting the Test set results
 
-
+"""
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score
 
@@ -55,7 +57,7 @@ def build_classifier():
     classifier = Sequential()
 #    classifier.add(Dense(output_dim = 90, init = 'uniform', activation = 'relu', input_dim= 180))
 #    classifier.add(Dense(output_dim = 20, init = 'uniform', activation = 'relu', input_dim= 180))
-    classifier.add(Input(shape=(180,)))
+    classifier.add(Input(shape=(360,)))
     classifier.add(Dense(units = 40, activation = 'relu'))
     classifier.add(Dense(units = 50, activation = 'relu'))
     classifier.add(Dense(units = 1, activation = 'sigmoid'))
@@ -72,33 +74,39 @@ accuraciers = cross_val_score(estimator = classifier, X = X_train, y = y_train, 
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 
-def build_classifier(first=90, second=90, third = False, fourth=90, optimizer='rmsprop',):
+def build_classifier(first=90, second=90, third = 5, fourth=90, optimizer='rmsprop',):
     classifier = Sequential()
-    classifier.add(Input(shape=(180,)))
+    classifier.add(Input(shape=(360,)))
     classifier.add(Dense(units = first, activation = 'relu'))
     classifier.add(Dense(units = second, activation = 'relu'))
-    if third == True:
-        classifier.add(Dense(units = 5, activation = 'relu'))        
-        classifier.add(Dense(units = fourth, activation = 'relu'))         
+#    if third == True:
+    classifier.add(Dense(units = third, activation = 'relu'))        
+#    classifier.add(Dense(units = fourth, activation = 'relu'))         
     classifier.add(Dense(units = 1, activation = 'sigmoid'))
     classifier.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'])
     return classifier
 
 classifier = KerasClassifier(build_fn = build_classifier)    
-parameters = {'batch_size' : [32],
-              'epochs' : [25],
-              'optimizer':['adam'],
-              'first':[40],
-              'second':[90,60,50,40,30,20,10],
-              'third':[False]
-             }
+#parameters = {'batch_size' : [32],
+#              'epochs' : [25],
+#              'optimizer':['adam'],
+#              'first':[40],
+#              'second':[90,60,50,40,30,20,10],
+#              'third':[False]
+#             }
+#parameters = {
+#              'batch_size' : [32, 64],
+#              'epochs' : [25, 50],
+#              'first':[120, 90, 60,30],
+#              'second':[120, 60, 30],
+#              'third':[30, 15, 5],
+#             }
 parameters = {
               'batch_size' : [32],
               'epochs' : [25],
-              'first':[90,60],
-              'second':[60],
-              'third':[False],
-              'fourth':[20]
+              'first':[120, 90],
+              'second':[120],
+              'third':[30],
              }
 
 
@@ -112,8 +120,11 @@ best_param= grid_search.best_params_
 best_accur= grid_search.best_score_
 
 classifier.fit(X_train, y_train, batch_size = 32)
-"""
 
+print("Melhores Parâmetros:")
+print(best_param)
+print("Melhor accuracy: ")
+print(best_accur)
 y_pred = classifier.predict(X_test)
 #y_pred = (y_pred>0.5)
 
@@ -122,5 +133,6 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
-cm
+
+print(cm)
 ###
