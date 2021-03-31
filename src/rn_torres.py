@@ -102,11 +102,11 @@ classifier = KerasClassifier(build_fn = build_classifier)
 #              'third':[30, 15, 5],
 #             }
 parameters = {
-              'batch_size' : [32],
-              'epochs' : [25],
-              'first':[120, 90],
-              'second':[120],
-              'third':[30],
+              'batch_size' : [32, 16],
+              'epochs' : [25, 15],
+              'first':[120, 200],
+              'second':[120, 200],
+              'third':[60],
              }
 
 
