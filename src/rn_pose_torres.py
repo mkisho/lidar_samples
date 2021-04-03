@@ -62,7 +62,7 @@ def build_model():
     model.add(Dense(units = 200, activation = 'relu'))
     model.add(Dense(units = 100, activation = 'relu'))
     model.add(Dense(units = 20, activation = 'relu'))
-    model.add(Dense(units = 2, activation = 'sigmoid'))
+    model.add(Dense(units = 2, activation = 'linear'))
     model.output_shape
     optimizer = tf.keras.optimizers.RMSprop(0.001)
     model.compile(optimizer = optimizer, loss = 'mse', metrics = ['mae','mse'])
@@ -121,7 +121,7 @@ grid_search= grid_search.fit(X_train, y_train)
 best_param= grid_search.best_params_
 best_accur= grid_search.best_score_
 """
-model.fit(X_train, y_train, batch_size = 32)
+model.fit(X_train, y_train, epochs=100)
 
 #print("Melhores Parâmetros:")
 #print(best_param)
@@ -129,7 +129,7 @@ model.fit(X_train, y_train, batch_size = 32)
 #print(best_accur)
 y_pred = model.predict(X_test)
 #y_pred = (y_pred>0.5)
-t=[y_pred[:,0]-y_test[:,0]]
+t=[y_pred[:,0], y_test[:,0],y_pred[:,1], y_test[:,1]]
 
 
 #Evaluating
