@@ -22,3 +22,6 @@ include_directories(
    ${catkin_LIBRARIES}
  )
 
+catkin_install_python(PROGRAMS src/detector.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
