@@ -61,9 +61,12 @@ int main(int argc, char **argv)
   int isValid=0;
   int isTorre=0;
   ros::Rate loop_rate(2);
-  for(int i=0; i<5000; i++){
-	  x=((float)rand()/(float)(RAND_MAX)) * 1 + sin(i)*4 + CENTRO_X;
-	  y=((float)rand()/(float)(RAND_MAX)) * 1 + cos(i)*4 + CENTRO_Y;
+  int i=0;
+  float angle;
+  while(i<5000){
+	  angle= 6.29*((float)rand()/(float)(RAND_MAX));
+	  x=((float)rand()/(float)(RAND_MAX)) * 1 + sin(angle)*4 + CENTRO_X;
+	  y=((float)rand()/(float)(RAND_MAX)) * 1 + cos(angle)*4 + CENTRO_Y;
 	  z=((float)rand()/(float)(RAND_MAX)) * 0.2 + CENTRO_Z;
 	  
 	  srv.request.link_state.link_name = "base_footprint";
@@ -101,20 +104,21 @@ int main(int argc, char **argv)
 	  } 
           ROS_INFO("Msg received: %d", i);
           isValid=0;
-	  for(int i=0; i < NUM_SAMPLES; i++){
-	  	if(isinf(scan.ranges[i])){
+	  for(int j=0; j < NUM_SAMPLES;j++){
+	  	if(!isinf(scan.ranges[j])){
 			isValid=1;
 		}
 	  }
           if(isValid){
+		  i++;
 		  resultados << CENTRO_X - x << ", " << CENTRO_Y - y << ", ";
-		  for(int i=0; i < NUM_SAMPLES; i++){
-			if(isinf(scan.ranges[i]))
+		  for(int j=0; j < NUM_SAMPLES; j++){
+			if(isinf(scan.ranges[j]))
 				resultados << "100" << ", ";
 			else
-				resultados << scan.ranges[i] << ", ";
+				resultados << scan.ranges[j] << ", ";
 		  }
-		  resultados << argv[1];
+		  resultados << argv[2];
    		  resultados <<"\n";
 	 }
 	}
