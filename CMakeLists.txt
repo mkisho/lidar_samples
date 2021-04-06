@@ -7,9 +7,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  roslib
 )
 
 catkin_package(
+#     INCLUDE_DIRS include CATKIN_DEPENDS roscpp std_msgs roslib
 )
 
 include_directories(

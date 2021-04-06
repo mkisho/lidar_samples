@@ -2,6 +2,7 @@
 #include "sensor_msgs/LaserScan.h"
 #include "gazebo_msgs/SetLinkState.h"
 #include "sensor_msgs/LaserScan.h"
+#include <ros/package.h>
 
 #include <time.h>
 #include <stdlib.h>
@@ -14,15 +15,12 @@
 #define CENTRO_Y 0
 #define CENTRO_Z 0.5
 
-#define ISTORRE "false"
-//#define FILENAME "~/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt"
 
 using namespace std;
 
 sensor_msgs::LaserScan scan;
 int new_reading= 0;
 
-ofstream resultados("/home/mathias/catkin_ws/src/lidar_samples/datasets/resultadosComTorre.txt");
 
 void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 	scan.header = msg->header;
@@ -41,13 +39,28 @@ void scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "lidar_samples");
+  if (argc != 3)
+  {
+    ROS_INFO("usage: lidar_samples_node File_name isTorre");
+    return 1;
+  }
+  if(strcmp(argv[2], "true") && strcmp(argv[2], "false")){
+    ROS_INFO("isTorre must be either true or false");
+    return 1;
+  }
+  std::string path = ros::package::getPath("lidar_samples")+"/datasets/" + argv[1];
+  cout << "Path do arquivo: " << path << "\n";
+  ofstream resultados(path);
+
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("scan", 1000, scanCallback);
   ros::ServiceClient client = n.serviceClient<gazebo_msgs::SetLinkState>("gazebo/set_link_state");
   gazebo_msgs::SetLinkState srv;
   srand(time(NULL));
   float x,y,z;
-  ros::Rate loop_rate(1);
+  int isValid=0;
+  int isTorre=0;
+  ros::Rate loop_rate(2);
   for(int i=0; i<5000; i++){
 	  x=((float)rand()/(float)(RAND_MAX)) * 1 + sin(i)*4 + CENTRO_X;
 	  y=((float)rand()/(float)(RAND_MAX)) * 1 + cos(i)*4 + CENTRO_Y;
@@ -74,6 +87,7 @@ int main(int argc, char **argv)
 	  srv.response.success=false;
 	  while (!client.call(srv))
 	  {
+		loop_rate.sleep();
     		ROS_WARN("Failed to call service lidar_samples");
 		
 	  }
@@ -86,12 +100,23 @@ int main(int argc, char **argv)
 
 	  } 
           ROS_INFO("Msg received: %d", i);
-	  resultados << CENTRO_X - x << " " << CENTRO_Y - y << " ";
+          isValid=0;
 	  for(int i=0; i < NUM_SAMPLES; i++){
-		resultados << scan.ranges[i] << " ";
+	  	if(isinf(scan.ranges[i])){
+			isValid=1;
+		}
 	  }
-	  resultados << ISTORRE;
-   	  resultados <<"\n";
+          if(isValid){
+		  resultados << CENTRO_X - x << ", " << CENTRO_Y - y << ", ";
+		  for(int i=0; i < NUM_SAMPLES; i++){
+			if(isinf(scan.ranges[i]))
+				resultados << "100" << ", ";
+			else
+				resultados << scan.ranges[i] << ", ";
+		  }
+		  resultados << argv[1];
+   		  resultados <<"\n";
+	 }
 	}
   resultados.close();
   return 0;
