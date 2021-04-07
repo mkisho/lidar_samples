@@ -13,7 +13,7 @@
 #define NUM_SAMPLES 180
 #define CENTRO_X 0
 #define CENTRO_Y 0
-#define CENTRO_Z 0.5
+#define CENTRO_Z 4
 
 
 using namespace std;
@@ -65,9 +65,9 @@ int main(int argc, char **argv)
   float angle;
   while(i<5000){
 	  angle= 6.29*((float)rand()/(float)(RAND_MAX));
-	  x=((float)rand()/(float)(RAND_MAX)) * 1 + sin(angle)*4 + CENTRO_X;
-	  y=((float)rand()/(float)(RAND_MAX)) * 1 + cos(angle)*4 + CENTRO_Y;
-	  z=((float)rand()/(float)(RAND_MAX)) * 0.2 + CENTRO_Z;
+	  x=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + sin(angle)*4 + CENTRO_X;
+	  y=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + cos(angle)*4 + CENTRO_Y;
+	  z=(((float)rand()/(float)(RAND_MAX)) * 6) - 3 + CENTRO_Z;
 	  
 	  srv.request.link_state.link_name = "base_footprint";
 	  srv.request.link_state.pose.position.x = x;
