@@ -4,6 +4,7 @@
 #include "sensor_msgs/LaserScan.h"
 #include <ros/package.h>
 
+
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
