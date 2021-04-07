@@ -16,7 +16,6 @@
 #define CENTRO_Y 0
 #define CENTRO_Z 5
 
-
 using namespace std;
 
 sensor_msgs::LaserScan scan;
@@ -111,6 +110,8 @@ int main(int argc, char **argv)
 		}
 	  }
           if(isValid){
+	          ROS_INFO("Amostra Valida");
+
 		  i++;
 		  resultados << CENTRO_X - x << ", " << CENTRO_Y - y << ", ";
 		  for(int j=0; j < NUM_SAMPLES; j++){
