@@ -14,7 +14,7 @@
 #include <fstream> 
 
 #define NUM_SAMPLES       2500
-#define NUM_SAMPLES_CYCLE 180
+#define NUM_SAMPLES_CYCLE 360
 #define CENTRO_X 0
 #define CENTRO_Y 0
 #define CENTRO_Z 5
