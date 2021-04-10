@@ -2,8 +2,10 @@
 #include "sensor_msgs/LaserScan.h"
 #include "gazebo_msgs/SetLinkState.h"
 #include "sensor_msgs/LaserScan.h"
+#include "geometry_msgs/Quaternion.h"
 #include <ros/package.h>
-
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 #include <time.h>
 #include <stdlib.h>
@@ -11,10 +13,13 @@
 #include <iostream>
 #include <fstream> 
 
-#define NUM_SAMPLES 180
+#define NUM_SAMPLES       2500
+#define NUM_SAMPLES_CYCLE 180
 #define CENTRO_X 0
 #define CENTRO_Y 0
 #define CENTRO_Z 5
+
+#define PI 3.14159265359
 
 using namespace std;
 
@@ -53,30 +58,32 @@ int main(int argc, char **argv)
   ofstream resultados(path);
 
   ros::NodeHandle n;
-  ros::Subscriber sub = n.subscribe("scan", 1000, scanCallback);
+  ros::Subscriber sub = n.subscribe("scan", 1, scanCallback);
   ros::ServiceClient client = n.serviceClient<gazebo_msgs::SetLinkState>("gazebo/set_link_state");
   gazebo_msgs::SetLinkState srv;
   srand(time(NULL));
   float x,y,z;
+  float angle_sensor;
   int isValid=0;
   int isTorre=0;
   ros::Rate loop_rate(2);
   int i=0;
   float angle;
-  while(i<5000){
+  tf2::Quaternion quat_tf;
+  geometry_msgs::Quaternion q;
+  while(i<NUM_SAMPLES){
 	  angle= 6.29*((float)rand()/(float)(RAND_MAX));
 	  x=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + sin(angle)*4 + CENTRO_X;
 	  y=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + cos(angle)*4 + CENTRO_Y;
 	  z=(((float)rand()/(float)(RAND_MAX)) * 8) - 4 + CENTRO_Z;
-	  
+	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;
+	  quat_tf.setRPY(0,0,0); 
+	  q = tf2::toMsg(quat_tf);
 	  srv.request.link_state.link_name = "base_footprint";
 	  srv.request.link_state.pose.position.x = x;
 	  srv.request.link_state.pose.position.y = y;
 	  srv.request.link_state.pose.position.z = z;
-	  srv.request.link_state.pose.orientation.x = 0;
-	  srv.request.link_state.pose.orientation.y = 0;
-	  srv.request.link_state.pose.orientation.z = 0;
-	  srv.request.link_state.pose.orientation.w = 1;
+	  srv.request.link_state.pose.orientation = q;
 
 	  srv.request.link_state.twist.linear.x = 0;
 	  srv.request.link_state.twist.linear.y = 0;
@@ -97,14 +104,14 @@ int main(int argc, char **argv)
 	  loop_rate.sleep();
   	  ros::spinOnce(); 
   	  new_reading=false;
-    	  ROS_WARN("Esperando msg");
+    	  ROS_INFO("Esperando msg\n");
 	  while(!new_reading){
   	  	ros::spinOnce();
 
 	  } 
           ROS_INFO("Msg received: %d", i);
           isValid=0;
-	  for(int j=0; j < NUM_SAMPLES;j++){
+	  for(int j=0; j < NUM_SAMPLES_CYCLE;j++){
 	  	if(!isinf(scan.ranges[j])){
 			isValid=1;
 		}
@@ -114,7 +121,7 @@ int main(int argc, char **argv)
 
 		  i++;
 		  resultados << CENTRO_X - x << ", " << CENTRO_Y - y << ", ";
-		  for(int j=0; j < NUM_SAMPLES; j++){
+		  for(int j=0; j < NUM_SAMPLES_CYCLE; j++){
 			if(isinf(scan.ranges[j]))
 				resultados << "100" << ", ";
 			else

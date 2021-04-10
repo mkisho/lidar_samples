@@ -1,4 +1,0 @@
-coluna 0: Diferença entre posição x do sensor e da torre
-coluna 1: Diferença entre posição y do sensor e da torre
-colunas 2-181: Leituras do sensor lidar
-coluna 182: bool se existe ou não sensor na amostra
