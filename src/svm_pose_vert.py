@@ -5,11 +5,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
+import math
+
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 # Importing the dataset
-dataset = pd.read_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/dadosFinais.csv')
-X = dataset.iloc[:, 2: 362].values
-y = dataset.iloc[:, -1].values
+dataset = pd.read_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/DATASETVERTICALTORRE.csv')
+X = dataset.iloc[:, 2: 92].values
+dist = dataset.iloc[:, :2].values
+y= np.array([math.sqrt(dist[i][0]**2+dist[i][1]**2) for i in range(0,4999)])
 
 print(X)
 
@@ -39,30 +42,27 @@ X_test = sc.transform(X_test)
 ###
 
 from sklearn import svm
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.model_selection import GridSearchCV
 
-parameters = {'C':[1, 2, 3], 'gamma':[0.01, 0.02]}
-svc = svm.SVC()
-clf = GridSearchCV(svc, parameters)
-clf.fit(X_train, y_train)
-sorted(clf.cv_results_.keys())
+svr = svm.SVR(degree=3, coef0=0, gamma=0.01, C=100, kernel = "poly")
 
-print("Best parameters set found on development set:")
-print()
-print(clf.best_params_)
-print()
-print("Grid scores on development set:")
-print()
-means = clf.cv_results_['mean_test_score']
-stds = clf.cv_results_['std_test_score']
-for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-    print("%0.3f (+/-%0.03f) for %r"
-    % (mean, std * 2, params))
+svr.fit(X_train, y_train)
+y_pred = svr.predict(X_test)
+
+mse = mean_squared_error(y_pred, y_test)
+mae = mean_absolute_error(y_pred, y_test)
+print(f'{mse} {mae}')
 
 #from sklearn import svm
-#clf = svm.SVC(C=2,gamma=0.01)
-#clf.fit(X_train, y_train)
-#y_pred= clf.predict(X_test)
+
+#sv = svm.SVC(C=50,gamma=0.01,kernel='rbf')
+#sv.fit(X_train, y_train)
+#y_pred= sv.predict(X_test)
+
+#from sklearn.metrics import confusion_matrix
+#cm = confusion_matrix(y_test, y_pred)
+#print (cm)
 
 #Evaluating
 # Making the Confusion Matrix
