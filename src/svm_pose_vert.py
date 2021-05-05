@@ -45,7 +45,7 @@ from sklearn import svm
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.model_selection import GridSearchCV
 
-svr = svm.SVR(degree=3, coef0=0, gamma=0.01, C=100, kernel = "poly")
+svr = svm.SVR(gamma=0.01, C=3, kernel = "rbf")
 
 svr.fit(X_train, y_train)
 y_pred = svr.predict(X_test)
