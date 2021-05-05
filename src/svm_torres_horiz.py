@@ -41,33 +41,33 @@ X_test = sc.transform(X_test)
 from sklearn import svm
 from sklearn.model_selection import GridSearchCV
 
-parameters = {'kernel':["rbf"], 'C':[100], 'gamma':[0.001]}
-svc = svm.SVC()
-clf = GridSearchCV(svc, parameters)
-clf.fit(X_train, y_train)
-sorted(clf.cv_results_.keys())
+#parameters = {'kernel':["rbf"], 'C':[100], 'gamma':[0.001]}
+#svc = svm.SVC()
+#clf = GridSearchCV(svc, parameters)
+#clf.fit(X_train, y_train)
+#sorted(clf.cv_results_.keys())
 
-print("Best parameters set found on development set:")
-print()
-print(clf.best_params_)
-print()
-print("Grid scores on development set:")
-print()
-means = clf.cv_results_['mean_test_score']
-stds = clf.cv_results_['std_test_score']
-for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-    print("%0.3f (+/-%0.03f) for %r"
-    % (mean, std * 2, params))
+#print("Best parameters set found on development set:")
+#print()
+#print(clf.best_params_)
+#print()
+#print("Grid scores on development set:")
+#print()
+#means = clf.cv_results_['mean_test_score']
+#stds = clf.cv_results_['std_test_score']
+#for mean, std, params in zip(means, stds, clf.cv_results_['params']):
+#    print("%0.3f (+/-%0.03f) for %r"
+#    % (mean, std * 2, params))
 
 #from sklearn import svm
 
-#sv = svm.SVC(C=100,gamma=0.001,kernel='rbf')
-#sv.fit(X_train, y_train)
-#y_pred= sv.predict(X_test)
+sv = svm.SVC(C=100,gamma=0.001,kernel='rbf')
+sv.fit(X_train, y_train)
+y_pred= sv.predict(X_test)
 
-#from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
-#print (cm)
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
+print (cm)
 
 #Evaluating
 # Making the Confusion Matrix
