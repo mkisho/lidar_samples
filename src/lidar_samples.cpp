@@ -14,14 +14,15 @@
 #include <fstream> 
 
 #define NUM_SAMPLES       2500
-#define NUM_SAMPLES_CYCLE 180
-#define CENTRO_X 0.0
-#define CENTRO_Y 0.0
+#define NUM_SAMPLES_CYCLE 360
+#define CENTRO_X 0
+#define CENTRO_Y 0
 #define CENTRO_Z 5
 
 #define PI 3.14159265359
 
 using namespace std;
+
 
 sensor_msgs::LaserScan scan;
 int new_reading= 0;
@@ -66,19 +67,18 @@ int main(int argc, char **argv)
   float angle_sensor;
   int isValid=0;
   int isTorre=0;
-  ros::Rate loop_rate(3);
+  ros::Rate loop_rate(2);
   int i=0;
   float angle;
   tf2::Quaternion quat_tf;
   geometry_msgs::Quaternion q;
   while(i<NUM_SAMPLES){
 	  angle= 6.29*((float)rand()/(float)(RAND_MAX));
-	  x=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + sin(angle)*4 + CENTRO_X;
-	  y=(((float)rand()/(float)(RAND_MAX)) * 2) - 1 + cos(angle)*4 + CENTRO_Y;
+	  x=(((float)rand()/(float)(RAND_MAX)) * 10) - 5 + sin(angle)*7 + CENTRO_X;
+	  y=(((float)rand()/(float)(RAND_MAX)) * 10) - 5 + cos(angle)*7 + CENTRO_Y;
 	  z=(((float)rand()/(float)(RAND_MAX)) * 8) - 4 + CENTRO_Z;
-//	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2);
-	  angle_sensor= atan2(y - CENTRO_Y, x - CENTRO_X) - PI;      //(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;
-	  quat_tf.setRPY(0,0,angle_sensor); 
+	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z + (((float)rand()/(float)(RAND_MAX)) * 0.035) - 0.0174533;
+	  quat_tf.setRPY(0,0,angle_sensor);
 	  q = tf2::toMsg(quat_tf);
 	  srv.request.link_state.link_name = "base_footprint";
 	  srv.request.link_state.pose.position.x = x;
@@ -96,10 +96,6 @@ int main(int argc, char **argv)
 
 	  srv.request.link_state.reference_frame = "world";
 	  srv.response.success=false;
-//          ROS_WARN("wtf %f, %f", x, CENTRO_X);
-//          ROS_WARN("wyf %f, %f", y, CENTRO_Y);
-//          ROS_WARN("waf %f, %f", angle_sensor, atan2(y - CENTRO_Y, x - CENTRO_X));
-
 	  while (!client.call(srv))
 	  {
 		loop_rate.sleep();

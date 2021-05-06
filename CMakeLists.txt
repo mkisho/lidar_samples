@@ -19,10 +19,14 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
- add_executable(${PROJECT_NAME}_node src/lidar_samples.cpp)
- target_link_libraries(${PROJECT_NAME}_node
+add_executable(${PROJECT_NAME}_node src/lidar_samples_vertical.cpp)
+target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
- )
+)
+add_executable(${PROJECT_NAME}_approach src/approachH.cpp)
+target_link_libraries(${PROJECT_NAME}_approach
+   ${catkin_LIBRARIES}
+)
 
 catkin_install_python(PROGRAMS src/detector.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
