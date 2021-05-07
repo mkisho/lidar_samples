@@ -14,7 +14,7 @@
 #include <fstream> 
 
 #define NUM_SAMPLES       2500
-#define NUM_SAMPLES_CYCLE 360
+#define NUM_SAMPLES_CYCLE 720
 #define CENTRO_X 0
 #define CENTRO_Y 0
 #define CENTRO_Z 5
@@ -72,8 +72,8 @@ int main(int argc, char **argv)
   tf2::Quaternion quat_tf;
   geometry_msgs::Quaternion q;
   x=-6;
-  while(x<-2){
-          x= -10 + i*0.04;
+  while(x<-5){
+          x= -13 + i*0.04;
 	  y= -4 + i*0.02;
 	  z= 5;
 	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;

@@ -14,7 +14,7 @@
 #include <fstream> 
 
 #define NUM_SAMPLES       2500
-#define NUM_SAMPLES_CYCLE 90
+#define NUM_SAMPLES_CYCLE 180
 #define CENTRO_X 0.0
 #define CENTRO_Y 0.0
 #define CENTRO_Z 5
@@ -74,8 +74,8 @@ int main(int argc, char **argv)
   x=-6;
   while(i<800){
 	  angle= (float) i/36;
-          x=  sin(angle)*(10 - i*0.01) + CENTRO_X;
-          y=  cos(angle)*(7 - i*0.005) + CENTRO_Y;;
+          x=  sin(angle)*(12 - i*0.01) + CENTRO_X;
+          y=  cos(angle)*(9 - i*0.005) + CENTRO_Y;;
           z= 8-i*0.005;
 //	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2);
 	  angle_sensor= atan2(y - CENTRO_Y, x - CENTRO_X) - PI;      //(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;

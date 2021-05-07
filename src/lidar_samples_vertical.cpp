@@ -14,7 +14,7 @@
 #include <fstream> 
 
 #define NUM_SAMPLES       2500
-#define NUM_SAMPLES_CYCLE 90
+#define NUM_SAMPLES_CYCLE 180
 #define CENTRO_X 0.0
 #define CENTRO_Y 0.0
 #define CENTRO_Z 5
@@ -73,11 +73,11 @@ int main(int argc, char **argv)
   geometry_msgs::Quaternion q;
   while(i<NUM_SAMPLES){
 	  angle= 6.29*((float)rand()/(float)(RAND_MAX));
-	  x=(((float)rand()/(float)(RAND_MAX)) * 12) - 6 + sin(angle)*8 + CENTRO_X;
-	  y=(((float)rand()/(float)(RAND_MAX)) * 12) - 6 + cos(angle)*8 + CENTRO_Y;
-	  z=(((float)rand()/(float)(RAND_MAX)) * 8) - 4 + CENTRO_Z;
+	  x=(((float)rand()/(float)(RAND_MAX)) * 10) - 5 + sin(angle)*12 + CENTRO_X;
+	  y=(((float)rand()/(float)(RAND_MAX)) * 10) - 5 + cos(angle)*12 + CENTRO_Y;
+	  z=(((float)rand()/(float)(RAND_MAX)) * 12) - 6 + CENTRO_Z;
 	  angle_sensor=(((float)rand()/(float)(RAND_MAX)) * PI * 2);
-//	  angle_sensor= atan2(y - CENTRO_Y, x - CENTRO_X) - PI + (((float)rand()/(float)(RAND_MAX)) * 0.035) - 0.0174533;      //(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;
+//	  angle_sensor= atan2(y - CENTRO_Y, x - CENTRO_X) - PI + (((float)rand()/(float)(RAND_MAX)) * 0.07) - 0.035;      //(((float)rand()/(float)(RAND_MAX)) * PI * 2) - PI + CENTRO_Z;
 	  quat_tf.setRPY(0,0,angle_sensor); 
 	  q = tf2::toMsg(quat_tf);
 	  srv.request.link_state.link_name = "base_footprint";

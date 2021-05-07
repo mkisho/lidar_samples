@@ -88,10 +88,20 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>74 936000000</sim_time>
-      <real_time>87 635154420</real_time>
-      <wall_time>1620311515 69001988</wall_time>
-      <iterations>74936</iterations>
+      <sim_time>2140 51000000</sim_time>
+      <real_time>2008 515482388</real_time>
+      <wall_time>1620334689 347500016</wall_time>
+      <iterations>1983692</iterations>
+      <model name='Office Building'>
+        <pose>-29.2572 9.13024 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-29.2572 9.13024 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='Power_Tower'>
         <pose>0 0 0 1.5708 -0 0</pose>
         <scale>1 1 1</scale>
@@ -112,11 +122,31 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
+      <model name='powerplant'>
+        <pose>3.74818 -48.7441 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>3.74818 -48.7441 0.01 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
       <model name='turtlebot3'>
-        <pose>0 0 20 0 -0 0</pose>
+        <pose>4.66256 15.1873 14.9288 0 0 -1.28062</pose>
         <scale>1 1 1</scale>
         <link name='base_footprint'>
-          <pose>0 0 20 0 -0 0</pose>
+          <pose>4.66256 15.1873 14.9288 0 0 -1.28062</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='water_tower'>
+        <pose>-3.34898 25.4561 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-3.34898 25.4561 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -128,7 +158,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>7.2687 -60.2647 70.0711 -0 0.623841 1.54445</pose>
+        <pose>108.706 21.9326 127.966 -0 0.653796 3.12448</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -194,7 +224,7 @@
               <horizontal>
                 <samples>720</samples>
                 <resolution>1</resolution>
-                <min_angle>-1.14159</min_angle>
+                <min_angle>-3.14159</min_angle>
                 <max_angle>3.14159</max_angle>
               </horizontal>
               <vertical>
@@ -251,7 +281,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/mathias/Downloads/Tower-Draft modeling.stl</uri>
+              <uri>/home/mathias/catkin_ws/src/lidar_samples_reloaded/models/Tower-Draft modeling.stl</uri>
               <scale>0.07 0.07 0.07</scale>
             </mesh>
           </geometry>
@@ -278,7 +308,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/mathias/Downloads/Tower-Draft modeling.stl</uri>
+              <uri>/home/mathias/catkin_ws/src/lidar_samples_reloaded/models/Tower-Draft modeling.stl</uri>
               <scale>0.07 0.07 0.07</scale>
             </mesh>
           </geometry>
@@ -332,6 +362,115 @@
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
       <pose>0 0 0 1.5708 -0 0</pose>
+    </model>
+    <model name='Office Building'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://office_building/meshes/office_building.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://office_building/meshes/office_building.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-29.2572 9.13024 0 0 -0 0</pose>
+    </model>
+    <model name='powerplant'>
+      <static>1</static>
+      <link name='link'>
+        <pose>0 0 0.01 0 -0 0</pose>
+        <collision name='wall1'>
+          <geometry>
+            <mesh>
+              <uri>model://powerplant/meshes/powerplant.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual1'>
+          <geometry>
+            <mesh>
+              <uri>model://powerplant/meshes/powerplant.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>3.74818 -48.7441 0 0 -0 0</pose>
+    </model>
+    <model name='water_tower'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://water_tower/meshes/water_tower.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://water_tower/meshes/water_tower.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-3.34898 25.4561 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>

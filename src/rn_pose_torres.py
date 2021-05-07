@@ -7,10 +7,11 @@ import pandas as pd
 import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 # Importing the dataset
-dataset = pd.read_csv('/home/mathias/catkin_ws/src/lidar_samples/datasets/dadosTreinoPose.csv')
-X = dataset.iloc[:, 2: 362].values
+dataset = pd.read_csv('/home/mathias/catkin_ws/src/lidar_samples_reloaded/datasets/FSHT.csv')
+X = dataset.iloc[:, 2: 722].values
 y = dataset.iloc[:, :2].values
 
+print(X)
 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer 
@@ -57,7 +58,7 @@ def build_model():
     model = Sequential()
 #    classifier.add(Dense(output_dim = 90, init = 'uniform', activation = 'relu', input_dim= 180))
 #    classifier.add(Dense(output_dim = 20, init = 'uniform', activation = 'relu', input_dim= 180))
-    model.add(Input(shape=(360,)))
+    model.add(Input(shape=(720,)))
     model.add(Dense(units = 200, activation = 'relu'))
     model.add(Dense(units = 200, activation = 'relu'))
     model.add(Dense(units = 100, activation = 'relu'))
@@ -121,7 +122,7 @@ grid_search= grid_search.fit(X_train, y_train)
 best_param= grid_search.best_params_
 best_accur= grid_search.best_score_
 """
-model.fit(X_train, y_train, epochs=100)
+model.fit(X_train, y_train, epochs=100000)
 
 #print("Melhores Parâmetros:")
 #print(best_param)
@@ -131,11 +132,11 @@ y_pred = model.predict(X_test)
 #y_pred = (y_pred>0.5)
 t=[y_pred[:,0], y_test[:,0],y_pred[:,1], y_test[:,1]]
 
-
+print (t)
 #Evaluating
 # Making the Confusion Matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+#from sklearn.metrics import confusion_matrix
+#cm = confusion_matrix(y_test, y_pred)
 
-print(cm)
+#print(cm)
 ###
