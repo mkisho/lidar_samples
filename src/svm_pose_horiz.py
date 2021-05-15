@@ -67,13 +67,23 @@ for p_C in parameter_c:
                     mae_one = mean_absolute_error(y_test[:,0], y_pred[:,0])
                     mae_two = mean_absolute_error(y_test[:,1], y_pred[:,1])
                     print(f'{mse_one} {mse_two} {mae_one} {mae_two}')
+###
+#graphic test
 
+#dataset = pd.read_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/approachH.csv')
+#X = dataset.iloc[:, 2: 362].values
+#y = dataset.iloc[:, :2].values
+#X = sc.transform(X) 
+#y_pred = mor.predict(X)
+#Y1=y_pred[0:, 0]
+#X1=y_pred[0:, 1]
+#Y2=y[0:, 0]
+#X2=y[0:, 1]
+#A1=np.array([math.sqrt(Y1[i]**2+X1[i]**2) for i in range(len(Y1))])
+#A2=np.array([math.sqrt(Y2[i]**2+X2[i]**2) for i in range(len(Y2))])
 
-#Evaluating
-# Making the Confusion Matrix
-#from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
-
-#print(cm)
+#df = pd.DataFrame([A2[0:], A1[0:]])
+#dft=df.T
+#dft.to_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/approachRH.csv',header=["X true", "X pred"])
 
 ###
