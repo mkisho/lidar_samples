@@ -54,20 +54,25 @@ mse = mean_squared_error(y_pred, y_test)
 mae = mean_absolute_error(y_pred, y_test)
 print(f'{mse} {mae}')
 
-#from sklearn import svm
+###
+#graphic test
 
-#sv = svm.SVC(C=50,gamma=0.01,kernel='rbf')
-#sv.fit(X_train, y_train)
-#y_pred= sv.predict(X_test)
+#dataset = pd.read_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/approach.csv')
+#X = dataset.iloc[:, 2: 92].values
+#y = dataset.iloc[:, :2].values
+#X = sc.transform(X)
+#y_pred = svr.predict(X)
 
-#from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
-#print (cm)
+#Y2=y[:, 0]
+#X2=y[:, 1]
+#y_true=[math.sqrt(X2[i]**2+Y2[i]**2) for i in range(len(Y2))]
 
-#Evaluating
-# Making the Confusion Matrix
-#from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
+#df = pd.DataFrame([y_true[:], y_pred[:]])
+#dft=df.T
+#mse = mean_squared_error(y_pred, y_true)
+#mae = mean_absolute_error(y_pred, y_true)
+#print("mae= ", mae)
+#print("mse= ", mse)
+#dft.to_csv('/home/lukn23/catkim_ws/src/lidar_samples/datasets/approachR.csv',header=["X true", "X pred"])
 
-#print(cm)
 ###
